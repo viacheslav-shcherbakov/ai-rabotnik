@@ -111,14 +111,19 @@
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Отправляем…"; }
 
       // --- Отправка ---
-      // 1) Если задан FORMSPREE_ID — шлём через Formspree (бесплатный backend без сервера).
-      //    Получить ID: зарегистрируйтесь на https://formspree.io, создайте форму,
-      //    скопируйте ID из её endpoint (https://formspree.io/f/{ID}) и впишите ниже.
-      // 2) Если задан OWN_API — шлём на свой backend (POST /api/lead).
-      // 3) Иначе — сохраняем в localStorage как страховочный буфер (fallback).
-      var FORMSPREE_ID = "";           // напр. "xaybnvqp"
-      var OWN_API = "";                // напр. "/api/lead"
-      var endpoint = FORMSPREE_ID ? "https://formspree.io/f/" + FORMSPREE_ID : OWN_API;
+      // Бэкенды (впишите нужный; приоритет: n8n webhook > Formspree > свой API):
+      // 1) N8N_WEBHOOK_URL — webhook n8n (основной бэкенд).
+      //    Создайте workflow в n8n с Webhook-триггером (POST), который принимает
+      //    JSON {name, company, email, phone, task} и шлёт заявку вам (email/CRM/таблицу).
+      //    Вставьте URL вида https://your-n8n.domain/webhook/airabotnik-lead
+      // 2) FORMSPREE_ID — бесплатный backend без сервера (https://formspree.io).
+      // 3) OWN_API — свой backend (POST /api/lead).
+      // 4) Если ничего не задано — демо-режим: заявка только в localStorage браузера.
+      var N8N_WEBHOOK_URL = "";   // ← вставьте URL n8n webhook (пока заглушка)
+      var FORMSPREE_ID = "";       // напр. "xaybnvqp"
+      var OWN_API = "";            // напр. "/api/lead"
+      var endpoint = N8N_WEBHOOK_URL
+        || (FORMSPREE_ID ? "https://formspree.io/f/" + FORMSPREE_ID : OWN_API);
 
       // Сохраняем в localStorage как дублирующий страховочный буфер (всегда)
       try {

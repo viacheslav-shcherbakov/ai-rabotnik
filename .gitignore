@@ -1,0 +1,13 @@
+# Вспомогательные скрипты сборки/аудита (не часть продукта)
+audit.py
+merge.py
+qa.py
+slop_audit.py
+slop_audit2.py
+design-variants.html
+parts/sections.html
+architecture-diagram.html
+
+# Локальные/временные
+*.log
+.DS_Store

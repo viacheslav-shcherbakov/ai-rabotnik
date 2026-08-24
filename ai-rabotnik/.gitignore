@@ -1,0 +1,17 @@
+# Dependencies
+.venv/
+node_modules/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts (если появятся)
+dist/
+build/

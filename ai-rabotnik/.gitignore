@@ -1,17 +1,13 @@
-# Dependencies
-.venv/
-node_modules/
+# Вспомогательные скрипты сборки/аудита (не часть продукта)
+audit.py
+merge.py
+qa.py
+slop_audit.py
+slop_audit2.py
+design-variants.html
+parts/sections.html
+architecture-diagram.html
 
-# OS / IDE
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# Logs
+# Локальные/временные
 *.log
-npm-debug.log*
-
-# Build artifacts (если появятся)
-dist/
-build/
+.DS_Store

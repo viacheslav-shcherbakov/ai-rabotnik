@@ -106,6 +106,10 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="parts/styles-extra.css">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
 
 <!--
   Аналитика (GA4 + Яндекс.Метрика).
@@ -154,6 +158,11 @@
 <!-- Skip-link для доступности -->
 <a href="#main" class="skip-link" aria-label="Перейти к основному контенту">Перейти к содержимому</a>
 
+<!-- Progress bar (scroll) -->
+<div class="progress-bar" role="progressbar" aria-label="Прогресс прокрутки" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+  <div class="progress-bar-fill" id="progressBarFill"></div>
+</div>
+
 <!-- ============ HEADER / NAV ============ -->
 <header class="site-header" id="top">
   <div class="container nav-bar">
@@ -165,6 +174,14 @@
     </a>
     <nav class="main-nav" aria-label="Основная навигация">
       <a href="#services">Услуги</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" aria-expanded="false" aria-controls="solutionsMenu" aria-haspopup="true">Решения <span aria-hidden="true">&#9662;</span></button>
+        <div class="nav-dropdown-menu" id="solutionsMenu" hidden role="menu">
+          <a href="#roles" role="menuitem">AI-сотрудники</a>
+          <a href="#how" role="menuitem">Как это работает</a>
+          <a href="#pricing" role="menuitem">Тарифы</a>
+        </div>
+      </div>
       <a href="#process">Процесс</a>
       <a href="#cases">Кейсы</a>
       <a href="#reviews">Отзывы</a>
@@ -177,11 +194,13 @@
   </div>
   <nav class="mobile-nav" id="mobileMenu" aria-label="Мобильная навигация" hidden>
     <a href="#services">Услуги</a>
+    <a href="#roles">Решения</a>
     <a href="#process">Процесс</a>
     <a href="#cases">Кейсы</a>
     <a href="#reviews">Отзывы</a>
+    <a href="#pricing">Тарифы</a>
     <a href="#faq">FAQ</a>
-    <button class="btn btn-primary" data-open-modal>Оставить заявку</button>
+    <button class="btn btn-primary" data-open-modalОставить заявку</button>
   </nav>
 </header>
 
@@ -202,6 +221,19 @@
       <button class="btn btn-primary btn-lg" data-open-modal data-analytics="cta_hero">Оставить заявку</button>
       <a href="#services" class="btn btn-ghost btn-lg" data-analytics="scroll_services">Наши услуги</a>
     </div>
+
+    <div class="hero-team" aria-label="Ваша команда цифровых сотрудников">
+      <span class="hero-team-label">Уже на связи:</span>
+      <div class="role-strip" role="img" aria-label="AI-юрист, бухгалтер, продавец, кадровик, поддержка, аналитик">
+        <img src="assets/img/roles/lawyer.png" alt="" loading="lazy">
+        <img src="assets/img/roles/accountant.jpg" alt="" loading="lazy">
+        <img src="assets/img/roles/sales.jpeg" alt="" loading="lazy">
+        <img src="assets/img/roles/hr.png" alt="" loading="lazy">
+        <img src="assets/img/roles/support.jpg" alt="" loading="lazy">
+        <img src="assets/img/roles/analyst.png" alt="" loading="lazy">
+      </div>
+    </div>
+
     <dl class="hero-stats">
       <div><dt>50+</dt><dd>внедрённых ИИ-работников</dd></div>
       <div><dt>4–9 нед.</dt><dd>средний срок запуска</dd></div>
@@ -220,55 +252,73 @@
       <h2 id="services-h" class="section-title">Услуги агентства</h2>
       <p class="section-sub">Полный цикл — от бизнес-анализа до поддержки. Подбираем стек под задачу, а не наоборот.</p>
     </header>
-    <div class="grid grid-3">
-      <article class="card service-card">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="4" stroke="currentColor" stroke-width="2"/><path d="M14 18l4 3-4 3M21 21h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    <div class="svc-clusters">
+      <div class="svc-cluster">
+        <div class="svc-cluster-head">
+          <span class="svc-cluster-num">01</span>
+          <h3 class="svc-cluster-title">Автономные работники</h3>
+          <p class="svc-cluster-sub">Агенты и RPA, которые сами выполняют задачи.</p>
         </div>
-        <h3 class="card-title">AI-агенты и ассистенты</h3>
-        <p class="card-text">Автономные агенты на LLM с инструментами: поиск, API-вызовы, работа с базами. Заменяют рутинные задачи живых сотрудников.</p>
-        <ul class="card-list"><li>Планирование и разбиение задач</li><li>Multimodal: текст, голос, документы</li><li>Интеграция с CRM и ERP</li></ul>
-      </article>
-      <article class="card service-card">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 12a4 4 0 014-4h16a4 4 0 014 4v12a4 4 0 01-4 4H18l-6 5v-5h-0a4 4 0 01-4-4V12z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 16h12M14 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <div class="svc-cluster-items">
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="4" stroke="currentColor" stroke-width="2"/><path d="M14 18l4 3-4 3M21 21h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="card-title">AI-агенты и ассистенты</h3>
+            <p class="card-text">Автономные агенты на LLM с инструментами: поиск, API-вызовы, работа с базами. Заменяют рутинные задачи живых сотрудников.</p>
+            <ul class="card-list"><li>Планирование и разбиение задач</li><li>Multimodal: текст, голос, документы</li><li>Интеграция с CRM и ERP</li></ul>
+          </article>
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="2"/><path d="M20 8v24M8 20h24" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="4" fill="currentColor"/></svg></div>
+            <h3 class="card-title">Автоматизация процессов (RPA+AI)</h3>
+            <p class="card-text">Сквозная автоматизация: ИИ принимает решения, RPA выполняет действия. Документооборот, отчётность, согласования.</p>
+            <ul class="card-list"><li>Парсинг и обработка документов</li><li>Авто-согласование и маршрутизация</li><li>Интеграция с 1С, S3, почтой</li></ul>
+          </article>
         </div>
-        <h3 class="card-title">Чат- и голосовые боты</h3>
-        <p class="card-text">Боты для Telegram, WhatsApp, сайта и телефонии. Естественные диалоги, передача оператору, многоязычность.</p>
-        <ul class="card-list"><li>Telegram / WhatsApp / виджет на сайт</li><li>Голосовые IVR и Dictaphone-боты</li><li>Передача оператору без потери контекста</li></ul>
-      </article>
-      <article class="card service-card">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="2"/><path d="M20 8v24M8 20h24" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="20" r="4" fill="currentColor"/></svg>
+      </div>
+
+      <div class="svc-cluster">
+        <div class="svc-cluster-head">
+          <span class="svc-cluster-num">02</span>
+          <h3 class="svc-cluster-title">Коммуникация и знания</h3>
+          <p class="svc-cluster-sub">Диалог с клиентом и доступ к корпоративной базе знаний.</p>
         </div>
-        <h3 class="card-title">Автоматизация процессов (RPA+AI)</h3>
-        <p class="card-text">Сквозная автоматизация: ИИ принимает решения, RPA выполняет действия. Документооборот, отчётность, согласования.</p>
-        <ul class="card-list"><li>Парсинг и обработка документов</li><li>Авто-согласование и маршрутизация</li><li>Интеграция с 1С, S3, почтой</li></ul>
-      </article>
-      <article class="card service-card">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M6 20l8-14 6 26 6-18 8 6" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <div class="svc-cluster-items">
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 12a4 4 0 014-4h16a4 4 0 014 4v12a4 4 0 01-4 4H18l-6 5v-5h-0a4 4 0 01-4-4V12z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 16h12M14 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <h3 class="card-title">Чат- и голосовые боты</h3>
+            <p class="card-text">Боты для Telegram, WhatsApp, сайта и телефонии. Естественные диалоги, передача оператору, многоязычность.</p>
+            <ul class="card-list"><li>Telegram / WhatsApp / виджет на сайт</li><li>Голосовые IVR и Dictaphone-боты</li><li>Передача оператору без потери контекста</li></ul>
+          </article>
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M6 20l8-14 6 26 6-18 8 6" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+            <h3 class="card-title">Внедрение LLM и RAG</h3>
+            <p class="card-text">RAG-системы с доступом к корпоративным знаниям. On-premise развёртывание, защита данных.</p>
+            <ul class="card-list"><li>Векторный поиск по документации</li><li>LlamaIndex / LangChain / Haystack</li><li>On-premise или приватное облако</li></ul>
+          </article>
         </div>
-        <h3 class="card-title">Внедрение LLM и RAG</h3>
-        <p class="card-text">RAG-системы с доступом к корпоративным знаниям. On-premise развёртывание, защита данных.</p>
-        <ul class="card-list"><li>Векторный поиск по документации</li><li>LlamaIndex / LangChain / Haystack</li><li>On-premise или приватное облако</li></ul>
-      </article>
-      <article class="card service-card">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="10" width="20" height="22" rx="2" stroke="currentColor" stroke-width="2"/><rect x="14" y="6" width="20" height="22" rx="2" stroke="currentColor" stroke-width="2"/><path d="M19 16h10M19 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+
+      <div class="svc-cluster">
+        <div class="svc-cluster-head">
+          <span class="svc-cluster-num">03</span>
+          <h3 class="svc-cluster-title">Сопровождение внедрения</h3>
+          <p class="svc-cluster-sub">От стратегии до эксплуатации и развития.</p>
         </div>
-        <h3 class="card-title">AI-аудит и стратегия</h3>
-        <p class="card-text">Оцениваем зрелость процессов, находим точки применения ИИ, считаем ROI и формируем дорожную карту внедрения.</p>
-        <ul class="card-list"><li>Анализ задач и данных</li><li>Расчёт ROI и приоритизация</li><li>Дорожная карта на 3–12 мес.</li></ul>
-      </article>
-      <article class="card service-card">
-        <div class="card-icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 6l12 5v8c0 7-5 13-12 15-7-2-12-8-12-15v-8l12-5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15 20l4 4 7-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="svc-cluster-items">
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="10" width="20" height="22" rx="2" stroke="currentColor" stroke-width="2"/><rect x="14" y="6" width="20" height="22" rx="2" stroke="currentColor" stroke-width="2"/><path d="M19 16h10M19 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <h3 class="card-title">AI-аудит и стратегия</h3>
+            <p class="card-text">Оцениваем зрелость процессов, находим точки применения ИИ, считаем ROI и формируем дорожную карту внедрения.</p>
+            <ul class="card-list"><li>Анализ задач и данных</li><li>Расчёт ROI и приоритизация</li><li>Дорожная карта на 3–12 мес.</li></ul>
+          </article>
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 6l12 5v8c0 7-5 13-12 15-7-2-12-8-12-15v-8l12-5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15 20l4 4 7-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="card-title">Поддержка и развитие</h3>
+            <p class="card-text">SRE-сопровождение, мониторинг качества, дообучение моделей, добавление новых сценариев по запросу.</p>
+            <ul class="card-list"><li>SLA и инцидент-менеджмент</li><li>Оценка качества (evals + human review)</li><li>Дообучение и расширение агентов</li></ul>
+          </article>
         </div>
-        <h3 class="card-title">Поддержка и развитие</h3>
-        <p class="card-text">SRE-сопровождение, мониторинг качества, дообучение моделей, добавление новых сценариев по запросу.</p>
-        <ul class="card-list"><li>SLA и инцидент-менеджмент</li><li>Оценка качества (evals + human review)</li><li>Дообучение и расширение агентов</li></ul>
-      </article>
+      </div>
     </div>
   </div>
 </section>
@@ -350,6 +400,202 @@
   </div>
 </section>
 
+<!-- ============ ROLES ============ -->
+<section class="section" id="roles" aria-labelledby="roles-h">
+  <div class="container">
+    <header class="section-head">
+      <span class="eyebrow">Виртуальная команда</span>
+      <h2 id="roles-h" class="section-title">AI-сотрудники под любую задачу</h2>
+      <p class="section-sub">Готовые цифровые специалисты, которые подключаются к вашему бизнесу и начинают работу немедленно.</p>
+    </header>
+
+    <div class="roles">
+      <article class="card role-card">
+        <div class="card-header">
+          <img class="role-avatar" src="assets/img/roles/lawyer.png" alt="AI-юрист Юра" width="96" height="96" loading="lazy">
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+        <h3 class="role-name">Юра-юрист</h3>
+        <p class="role-sub">Юридический консультант</p>
+        <p class="card-text">Автоматический анализ договоров, выявление рисков и подготовка юридических документов.</p>
+        <dl class="role-stats">
+          <div><dt>99%</dt><dd>точность</dd></div>
+          <div><dt>30с</dt><dd>анализ</dd></div>
+          <div><dt>24/7</dt><dd>на связи</dd></div>
+        </dl>
+      </article>
+
+      <article class="card role-card">
+        <div class="card-header">
+          <img class="role-avatar" src="assets/img/roles/accountant.jpg" alt="AI-бухгалтер Боря" width="96" height="96" loading="lazy">
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+        <h3 class="role-name">Боря-бухгалтер</h3>
+        <p class="role-sub">Финансовый аналитик</p>
+        <p class="card-text">Автоматизация бухгалтерского учёта, расчёт налогов и формирование отчётности в реальном времени.</p>
+        <dl class="role-stats">
+          <div><dt>&minus;95%</dt><dd>ошибок</dd></div>
+          <div><dt>2ч</dt><dd>отчётность</dd></div>
+          <div><dt>24/7</dt><dd>на связи</dd></div>
+        </dl>
+      </article>
+
+      <article class="card role-card">
+        <div class="card-header">
+          <img class="role-avatar" src="assets/img/roles/sales.jpeg" alt="AI-продавец Саша" width="96" height="96" loading="lazy">
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+        <h3 class="role-name">Саша-продавец</h3>
+        <p class="role-sub">Аналитик продаж</p>
+        <p class="card-text">Генерация лидов, персонализированные предложения и автоматизация продаж.</p>
+        <dl class="role-stats">
+          <div><dt>+40%</dt><dd>конверсия</dd></div>
+          <div><dt>24/7</dt><dd>продажи</dd></div>
+          <div><dt>&infin;</dt><dd>лиды</dd></div>
+        </dl>
+      </article>
+
+      <article class="card role-card">
+        <div class="card-header">
+          <img class="role-avatar" src="assets/img/roles/hr.png" alt="AI-кадровик Аня" width="96" height="96" loading="lazy">
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+        <h3 class="role-name">Аня-кадровик</h3>
+        <p class="role-sub">HR-специалист</p>
+        <p class="card-text">Подбор персонала, анализ резюме и управление процессом найма.</p>
+        <dl class="role-stats">
+          <div><dt>500+</dt><dd>резюме/день</dd></div>
+          <div><dt>&times;3</dt><dd>быстрее</dd></div>
+          <div><dt>14&rarr;3дн</dt><dd>найм</dd></div>
+        </dl>
+      </article>
+
+      <article class="card role-card">
+        <div class="card-header">
+          <img class="role-avatar" src="assets/img/roles/support.jpg" alt="AI-поддержка Катя" width="96" height="96" loading="lazy">
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+        <h3 class="role-name">Катя-поддержка</h3>
+        <p class="role-sub">Специалист поддержки</p>
+        <p class="card-text">24/7 поддержка клиентов через все каналы связи с эмоциональным интеллектом.</p>
+        <dl class="role-stats">
+          <div><dt>24/7</dt><dd>ответ</dd></div>
+          <div><dt>&lt;1мин</dt><dd>реакция</dd></div>
+          <div><dt>90%</dt><dd>решений</dd></div>
+        </dl>
+      </article>
+
+      <article class="card role-card">
+        <div class="card-header">
+          <img class="role-avatar" src="assets/img/roles/analyst.png" alt="AI-аналитик Дима" width="96" height="96" loading="lazy">
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+        <h3 class="role-name">Дима-аналитик</h3>
+        <p class="role-sub">Бизнес-аналитик</p>
+        <p class="card-text">Прогнозирование бизнес-показателей и стратегические рекомендации.</p>
+        <dl class="role-stats">
+          <div><dt>98%</dt><dd>точность</dd></div>
+          <div><dt>7д</dt><dd>прогноз</dd></div>
+          <div><dt>real-time</dt><dd>данные</dd></div>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section section-alt" id="how" aria-labelledby="how-h">
+  <div class="container">
+    <header class="section-head">
+      <span class="eyebrow">Принцип работы</span>
+      <h2 id="how-h" class="section-title">Как запустить AI-команду</h2>
+      <p class="section-sub">Три простых шага от идеи до работающих цифровых сотрудников.</p>
+    </header>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num">01</span>
+        <h3>Выберите специалистов</h3>
+        <p>Определите задачи для автоматизации: юридические консультации, бухгалтерия, продажи, подбор персонала или клиентская поддержка.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">02</span>
+        <h3>Настройте систему</h3>
+        <p>Укажите специфику вашего бизнеса, интегрируйте с существующими системами и задайте параметры работы.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">03</span>
+        <h3>Запустите и масштабируйте</h3>
+        <p>AI-специалисты начинают работу немедленно. Добавляйте новых коллег по мере роста бизнеса.</p>
+      </li>
+    </ol>
+
+    <div class="steps-banner" role="note">
+      <img class="banner-icon-img" src="assets/img/logo-robot.png" alt="" aria-hidden="true">
+      <p class="banner-text">
+        <strong>Ваши AI-специалисты работают с точностью 98.7% и экономят до 70% времени команды.</strong>
+        <span>Средний срок окупаемости внедрения: 28 дней.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="section" id="pricing" aria-labelledby="pricing-h">
+  <div class="container">
+    <header class="section-head">
+      <span class="eyebrow">Тарифы</span>
+      <h2 id="pricing-h" class="section-title">Выберите свой план</h2>
+      <p class="section-sub">Прозрачные условия — от бесплатного старта до индивидуального корпоративного решения.</p>
+    </header>
+
+    <div class="pricing-grid">
+      <article class="card price-card">
+        <h3 class="price-name">Стартовый</h3>
+        <div class="price-amount">0&nbsp;&#8381;<span class="price-period">/мес</span></div>
+        <p class="price-desc">Для старта</p>
+        <ul class="price-list">
+          <li class="yes">1 AI-специалист</li>
+          <li class="yes">Базовые функции</li>
+          <li class="yes">Поддержка email</li>
+          <li class="no">Приоритетная поддержка</li>
+          <li class="no">Интеграция с CRM</li>
+        </ul>
+        <button class="btn btn-primary btn-block" data-open-modal aria-label="Начать бесплатно по тарифу Стартовый">Начать бесплатно</button>
+      </article>
+
+      <article class="card price-card featured">
+        <span class="price-badge">Популярный</span>
+        <h3 class="price-name">Профессиональный</h3>
+        <div class="price-amount">2490&nbsp;&#8381;<span class="price-period">/мес</span></div>
+        <p class="price-desc">Для роста</p>
+        <ul class="price-list">
+          <li class="yes">5 AI-специалистов</li>
+          <li class="yes">Полный функционал</li>
+          <li class="yes">24/7 поддержка</li>
+          <li class="yes">Интеграция с CRM</li>
+          <li class="yes">Аналитика эффективности</li>
+        </ul>
+        <button class="btn btn-primary btn-block" data-open-modal aria-label="Подключить тариф Профессиональный">Подключить тариф</button>
+      </article>
+
+      <article class="card price-card">
+        <h3 class="price-name">Корпоративный</h3>
+        <div class="price-amount">Индивидуально</div>
+        <p class="price-desc">Для крупных компаний</p>
+        <ul class="price-list">
+          <li class="yes">Неограниченные специалисты</li>
+          <li class="yes">Персонализация под бизнес</li>
+          <li class="yes">Выделенный менеджер</li>
+          <li class="yes">SLA 99.95%</li>
+          <li class="yes">Кастомные интеграции</li>
+        </ul>
+        <button class="btn btn-primary btn-block" data-open-modal aria-label="Обсудить условия корпоративного тарифа">Обсудить условия</button>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============ REVIEWS ============ -->
 <section class="section section-alt" id="reviews" aria-labelledby="reviews-h">
   <div class="container">
@@ -370,6 +616,34 @@
         <figcaption>
           <span class="avatar" aria-hidden="true">ДП</span>
           <span><strong>Дмитрий Петров</strong><br>Финансовый директор, LogiCo</span>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="testimonials-grid">
+      <figure class="card review-card">
+        <div class="review-stars" aria-label="Оценка 5 из 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&laquo;Юра-юрист сэкономил нам 150+ часов юридической работы в месяц. Контракты проверяются мгновенно с точностью 99%.&raquo;</blockquote>
+        <figcaption>
+          <span class="avatar" aria-hidden="true">МИ</span>
+          <span><strong>Марк Иванов</strong><br>Генеральный директор, Технолоджик</span>
+        </figcaption>
+      </figure>
+
+      <figure class="card review-card">
+        <div class="review-stars" aria-label="Оценка 5 из 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&laquo;Боря-бухгалтер полностью автоматизировал отчётность. Ошибки снизились на 95%, подготовка деклараций — с 3 дней до 2 часов.&raquo;</blockquote>
+        <figcaption>
+          <span class="avatar" aria-hidden="true">ДС</span>
+          <span><strong>Дмитрий Соколов</strong><br>Финансовый директор, Финтех Групп</span>
+        </figcaption>
+      </figure>
+
+      <figure class="card review-card">
+        <div class="review-stars" aria-label="Оценка 5 из 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&laquo;Аня-кадровик обрабатывает 500+ резюме в день и находит кандидатов в 3 раза быстрее. Время найма сократилось с 14 до 3 дней.&raquo;</blockquote>
+        <figcaption>
+          <span class="avatar" aria-hidden="true">АН</span>
+          <span><strong>Анна Новикова</strong><br>HR-директор, Талант Про</span>
         </figcaption>
       </figure>
     </div>
@@ -511,6 +785,30 @@
 
 <button class="scroll-top" aria-label="Наверх" hidden>↑</button>
 
+<!-- Чат-виджет -->
+<div class="chat-widget" id="chatWidget">
+  <button class="chat-bubble" id="chatToggle" aria-label="Открыть чат" aria-expanded="false" aria-controls="chatWindow">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="chat-window" id="chatWindow" hidden>
+    <div class="chat-header">
+      <h3>AI-помощник</h3>
+      <span class="chat-status">онлайн</span>
+      <button class="chat-close" id="chatClose" aria-label="Закрыть чат">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg msg-bot">Здравствуйте! Я AI-помощник AI-Rabotnik. Чем могу помочь?</div>
+    </div>
+    <form class="chat-input-row" id="chatForm">
+      <input id="chatInput" type="text" placeholder="Напишите сообщение&hellip;" aria-label="Сообщение">
+      <button type="submit" aria-label="Отправить">&rarr;</button>
+    </form>
+  </div>
+</div>
+
 <script src="app.js" defer></script>
+<script src="parts/app-extra.js" defer></script>
 </body>
 </html>

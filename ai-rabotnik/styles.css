@@ -3,6 +3,30 @@
    Монохромная база + фиолетовый акцент (Notion-like)
    ============================================ */
 
+/* Self-host шрифты (без CDN, работает офлайн). OpenAISans — гуманистический
+   sans, близкий к IBM Plex Sans; JetBrains Mono — для чисел/кода. */
+@font-face {
+  font-family: 'OpenAI Sans';
+  src: url('assets/fonts/openai-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'OpenAI Sans';
+  src: url('assets/fonts/openai-sans-medium.woff2') format('woff2');
+  font-weight: 500 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('assets/fonts/jetbrains-mono-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Palette */
   --bg: #ffffff;
@@ -12,11 +36,11 @@
   --text-muted: #6b6b6b;
   --border: #e8e8e3;
   --border-strong: #d4d4cf;
-  --accent: #6C5CE7;
-  --accent-hover: #5B4BD6;
-  --accent-light: #efeaff;
-  --accent-dark: #4338CA;
-  --success: #16a34a;
+  --accent: #5b4bef;
+  --accent-hover: #4a3cd9;
+  --accent-light: #eeeaff;
+  --accent-dark: #3a2fb8;
+  --success: #15803d;
   --danger: #dc2626;
   --radius: 12px;
   --radius-lg: 20px;
@@ -24,8 +48,8 @@
   --shadow-md: 0 4px 16px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04);
   --shadow-lg: 0 12px 40px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.05);
   --max-w: 1200px;
-  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --font: 'OpenAI Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
   --transition: .25s cubic-bezier(.4,0,.2,1);
 }
 
@@ -82,9 +106,7 @@ input, textarea { font: inherit; }
 /* ============ HEADER ============ */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,.9);
   border-bottom: 1px solid var(--border);
 }
 .nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; }
@@ -139,7 +161,7 @@ input, textarea { font: inherit; }
 /* Card */
 .card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; transition: var(--transition); }
 .card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--border-strong); }
-.card-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--accent-light); color: var(--accent); border-radius: 12px; margin-bottom: 20px; }
+.card-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 12px; }
 .card-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
 .card-text { color: var(--text-muted); margin-bottom: 16px; line-height: 1.55; }
 .card-list { display: flex; flex-direction: column; gap: 8px; }
@@ -200,8 +222,7 @@ input, textarea { font: inherit; }
 /* ============ MODAL ============ */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 1000;
-  background: rgba(10,10,10,.55);
-  backdrop-filter: blur(4px);
+  background: rgba(10,10,10,.6);
   display: flex; align-items: center; justify-content: center;
   padding: 20px; opacity: 0; transition: opacity .2s;
 }

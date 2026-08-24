@@ -35,7 +35,8 @@
      ============================================ */
   function initProgressBar() {
     var bar = document.getElementById("progressBar");
-    if (!bar) return; // разметки нет — молча выходим
+    var fill = document.getElementById("progressBarFill");
+    if (!bar || !fill) return; // разметки нет — молча выходим
 
     var ticking = false;
 
@@ -49,7 +50,8 @@
       var progress = denom > 0 ? (scrollTop / denom) * 100 : 0;
       if (progress < 0) progress = 0;
       if (progress > 100) progress = 100;
-      bar.style.width = progress + "%";
+      fill.style.width = progress + "%";
+      bar.setAttribute("aria-valuenow", Math.round(progress));
     }
 
     function onScroll() {

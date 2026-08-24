@@ -108,7 +108,7 @@
   transform: translateY(-2px);
 }
 
-.step-num {
+.step .step-num {
   display: block;
   font-size: 2.2rem;
   font-weight: 700;
@@ -139,17 +139,6 @@
   color: var(--text);
 }
 .steps-banner .banner-icon {
-  flex: 0 0 auto;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 12px;
-  font-size: 1.4rem;
-}
 .steps-banner .banner-text { flex: 1; }
 .steps-banner .banner-text strong { display: block; font-size: 1.05rem; }
 .steps-banner .banner-text span { color: var(--text-muted); font-size: .9rem; }

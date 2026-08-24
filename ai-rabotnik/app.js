@@ -22,11 +22,28 @@
   /* ---- Модалка ---- */
   var overlay = document.getElementById("modalOverlay");
   var lastFocused = null;
+  var modalEl = overlay ? overlay.querySelector(".modal") : null;
+
+  // Focus-trap: удерживаем Tab-фокус внутри диалога (WCAG 2.1.2/2.4.3)
+  function trapFocus(e) {
+    if (e.key !== "Tab" || !modalEl) return;
+    var focusables = modalEl.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusables.length) return;
+    var first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }
 
   function openModal() {
     lastFocused = document.activeElement;
     if (overlay.hasAttribute("hidden")) overlay.removeAttribute("hidden");
     document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", trapFocus);
     var firstInput = overlay.querySelector("input, textarea");
     if (firstInput) setTimeout(function () { firstInput.focus(); }, 100);
     trackEvent("modal_open", "engagement");
@@ -35,6 +52,7 @@
   function closeModal() {
     overlay.setAttribute("hidden", "");
     document.body.style.overflow = "";
+    document.removeEventListener("keydown", trapFocus);
     if (lastFocused) lastFocused.focus();
   }
 

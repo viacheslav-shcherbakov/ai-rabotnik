@@ -11,3 +11,8 @@ architecture-diagram.html
 # Локальные/временные
 *.log
 .DS_Store
+.env
+
+# Secrets / runtime data
+*.db
+.env.local

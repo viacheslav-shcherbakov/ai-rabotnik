@@ -1,5 +1,9 @@
 version: "3.9"
 
+# Self-host стек AI-Rabotnik: сайт + n8n + Ollama (локальный LLM) + БД + Lead API.
+# Приватность: Ollama и Postgres НЕ публикуются наружу (только внутренняя сеть `ai-net`).
+# Внешний мир видит только сайт (:8080) и n8n (:5678, защитить basic-auth/ться на проде).
+
 services:
   web:
     build: .
@@ -14,3 +18,78 @@ services:
       timeout: 3s
       retries: 3
       start_period: 5s
+    networks:
+      - ai-net
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: ai-rabotnik-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_SECURE_COOKIE=false
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-change-me}
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678}
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD:-n8npass}
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      - postgres
+    networks:
+      - ai-net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-rabotnik-ollama
+    restart: unless-stopped
+    # Порт 11434 НЕ публикуется наружу — только для n8n/api внутри сети.
+    volumes:
+      - ollama_data:/root/.ollama
+    # Для GPU раскомментируй: deploy.resources.reservations.devices = [gpu]
+    networks:
+      - ai-net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-rabotnik-postgres
+    restart: unless-stopped
+    # Порт 5432 НЕ публикуется — только внутри сети.
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-airabotnik}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-aistrongpass}
+      - POSTGRES_DB=${POSTGRES_DB:-airabotnik}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - ai-net
+
+  api:
+    build: ./api
+    image: ai-rabotnik-api:latest
+    container_name: ai-rabotnik-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg://${POSTGRES_USER:-airabotnik}:${POSTGRES_PASSWORD:-aistrongpass}@postgres:5432/${POSTGRES_DB:-airabotnik}
+    depends_on:
+      - postgres
+    networks:
+      - ai-net
+
+volumes:
+  n8n_data:
+  ollama_data:
+  pg_data:
+
+networks:
+  ai-net:
+    driver: bridge
